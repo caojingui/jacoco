@@ -114,6 +114,10 @@ public class CoverageNodeImpl implements ICoverageNode {
 		return lineCounter;
 	}
 
+	public void setLineCounter(CounterImpl lineCounter) {
+		this.lineCounter = lineCounter;
+	}
+
 	public ICounter getComplexityCounter() {
 		return complexityCounter;
 	}

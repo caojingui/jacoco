@@ -46,6 +46,12 @@ public class ReportMojo extends AbstractReportMojo {
 	@Parameter(property = "jacoco.dataFile", defaultValue = "${project.build.directory}/jacoco.exec")
 	private File dataFile;
 
+	/**
+	 * Increment report
+	 */
+	@Parameter(property = "jacoco.report.increment", defaultValue = "false")
+	private Boolean incrementReport;
+
 	@Override
 	boolean canGenerateReportRegardingDataFiles() {
 		return dataFile.exists();
@@ -64,6 +70,7 @@ public class ReportMojo extends AbstractReportMojo {
 	@Override
 	void addFormatters(final ReportSupport support, final Locale locale)
 			throws IOException {
+		support.setIncrementReport(incrementReport);
 		support.addAllFormatters(outputDirectory, outputEncoding, footer,
 				locale);
 	}
