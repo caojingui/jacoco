@@ -12,6 +12,8 @@
  *******************************************************************************/
 package org.jacoco.core.analysis;
 
+import org.jacoco.core.internal.analysis.CounterImpl;
+
 /**
  * Interface for hierarchical coverage data nodes with different coverage
  * counters.
@@ -101,6 +103,8 @@ public interface ICoverageNode {
 	 * @return counter for lines
 	 */
 	ICounter getLineCounter();
+
+	void setLineCounter(CounterImpl counter);
 
 	/**
 	 * Returns the counter for cyclomatic complexity.

@@ -167,4 +167,11 @@ public class SourceNodeImpl extends CoverageNodeImpl implements ISourceNode {
 		return line == null ? LineImpl.EMPTY : line;
 	}
 
+	public void replaceLine(final int nr, LineImpl line) {
+		if (lines == null || nr < getFirstLine() || nr > getLastLine()) {
+			return;
+		}
+		lines[nr - offset] = line;
+	}
+
 }

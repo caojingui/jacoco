@@ -12,6 +12,8 @@
  *******************************************************************************/
 package org.jacoco.core.analysis;
 
+import org.jacoco.core.internal.analysis.LineImpl;
+
 /**
  * Interface for coverage nodes that have individual source lines like methods,
  * classes and source files.
@@ -45,5 +47,7 @@ public interface ISourceNode extends ICoverageNode {
 	 * @return line information
 	 */
 	ILine getLine(int nr);
+
+	void replaceLine(final int nr, LineImpl line);
 
 }

@@ -33,6 +33,8 @@ import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.analysis.IBundleCoverage;
 import org.jacoco.core.analysis.IClassCoverage;
 import org.jacoco.core.tools.ExecFileLoader;
+import org.jacoco.maven.git.GitFileUtil;
+import org.jacoco.maven.git.IncrementCodeFilter;
 import org.jacoco.report.FileMultiReportOutput;
 import org.jacoco.report.IReportGroupVisitor;
 import org.jacoco.report.IReportVisitor;
@@ -205,6 +207,10 @@ final class ReportSupport {
 
 		final IBundleCoverage bundle = builder.getBundle(bundeName);
 		logBundleInfo(bundle, builder.getNoMatchClasses());
+
+		if (GitFileUtil.inited()) {
+			IncrementCodeFilter.filterIncrementCode(bundle);
+		}
 
 		visitor.visitBundle(bundle, locator);
 	}
