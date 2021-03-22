@@ -70,7 +70,6 @@ public class ReportMojo extends AbstractReportMojo {
 	@Override
 	void addFormatters(final ReportSupport support, final Locale locale)
 			throws IOException {
-		support.setIncrementReport(incrementReport);
 		support.addAllFormatters(outputDirectory, outputEncoding, footer,
 				locale);
 	}

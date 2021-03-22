@@ -33,6 +33,7 @@ import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.analysis.IBundleCoverage;
 import org.jacoco.core.analysis.IClassCoverage;
 import org.jacoco.core.tools.ExecFileLoader;
+import org.jacoco.maven.git.GitFileUtil;
 import org.jacoco.maven.git.IncrementCodeFilter;
 import org.jacoco.report.FileMultiReportOutput;
 import org.jacoco.report.IReportGroupVisitor;
@@ -64,7 +65,6 @@ final class ReportSupport {
 	private final Log log;
 	private final ExecFileLoader loader;
 	private final List<IReportVisitor> formatters;
-	private boolean incrementReport = false;
 
 	/**
 	 * Construct a new instance with the given log output.
@@ -207,8 +207,9 @@ final class ReportSupport {
 
 		final IBundleCoverage bundle = builder.getBundle(bundeName);
 		logBundleInfo(bundle, builder.getNoMatchClasses());
-		if (incrementReport) {
-			IncrementCodeFilter.filterIncrementCode(project, bundle);
+
+		if (GitFileUtil.inited()) {
+			IncrementCodeFilter.filterIncrementCode(bundle);
 		}
 
 		visitor.visitBundle(bundle, locator);
@@ -298,9 +299,5 @@ final class ReportSupport {
 			file = new File(project.getBasedir(), path);
 		}
 		return file;
-	}
-
-	public void setIncrementReport(boolean incrementReport) {
-		this.incrementReport = incrementReport;
 	}
 }
