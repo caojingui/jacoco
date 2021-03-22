@@ -46,12 +46,6 @@ public class ReportMojo extends AbstractReportMojo {
 	@Parameter(property = "jacoco.dataFile", defaultValue = "${project.build.directory}/jacoco.exec")
 	private File dataFile;
 
-	/**
-	 * Increment report
-	 */
-	@Parameter(property = "jacoco.report.increment", defaultValue = "false")
-	private Boolean incrementReport;
-
 	@Override
 	boolean canGenerateReportRegardingDataFiles() {
 		return dataFile.exists();
