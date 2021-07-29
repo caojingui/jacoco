@@ -57,10 +57,7 @@ public class GitFileUtil {
 		if (diffCode.compareAndSet(false, true)) {
 			String gitPath = project.getProperties().getProperty(GIT_PATH,
 					"git");
-			String baseDir = project.getBasedir().getAbsolutePath();
-			if (project.getParent() != null) {
-				baseDir = project.getParent().getBasedir().getAbsolutePath();
-			}
+			String baseDir = getProjectRootDir(project);
 			log.info(format("GitFileUtil baseDir='%s' ", baseDir));
 			String baseCommitId = project.getProperties()
 					.getProperty(GIT_BASE_COMMIT);
@@ -76,6 +73,15 @@ public class GitFileUtil {
 						currentCommitId);
 				diffCodeMap.put(info.getClassFullName(), info);
 			}
+		}
+	}
+
+	private static String getProjectRootDir(MavenProject project) {
+		MavenProject parent = project.getParent();
+		if (parent != null && parent.getBasedir() != null) {
+			return getProjectRootDir(parent);
+		} else {
+			return project.getBasedir().getAbsolutePath();
 		}
 	}
 
